@@ -32,10 +32,10 @@ Tutte le librerie di terze parti sono **self-hosted** (nessuna dipendenza da CDN
 |---|---|---|
 | [Bootstrap](https://getbootstrap.com/) | 5.3.x | Framework CSS/JS per il layout a grid, componenti responsive (navbar, collapse, tabelle) |
 | [Font Awesome](https://fontawesome.com/) | 6.5.x | Set di icone vettoriali (leaf, wine-glass, chart, ecc.) |
-| [Flag Icons](https://github.com/lipis/flag-icons) | — | Icone SVG delle bandiere per il selettore di lingua (evita problemi di rendering degli emoji) |
-| [Google Fonts](https://fonts.google.com/) — Inter, Playfair Display | — | Font per testo (Inter) e titoli (Playfair Display), self-hosted in formato woff2 |
-| JavaScript vanilla (ES5+) | — | Nessun framework: gestione i18n, tema chiaro/scuro, animazioni "reveal on scroll" (Intersection Observer), navigazione attiva allo scroll |
-| HTML5 semantico + ARIA | — | Accessibilità (WCAG 2.1): skip link, focus visibile, `aria-label`/`aria-pressed`, `prefers-reduced-motion` |
+| [Flag Icons](https://github.com/lipis/flag-icons) |  | Icone SVG delle bandiere per il selettore di lingua (evita problemi di rendering degli emoji) |
+| [Google Fonts](https://fonts.google.com/) |  | Font per testo (Inter) e titoli (Playfair Display), self-hosted in formato woff2 |
+| JavaScript vanilla (ES5+) |  | Nessun framework: gestione i18n, tema chiaro/scuro, animazioni "reveal on scroll" (Intersection Observer) |
+| HTML5 semantico |  | Accessibilità (WCAG 2.1) + ARIA: skip link, focus visibile |
 
 ## Funzionalità principali
 

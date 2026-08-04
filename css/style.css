@@ -929,7 +929,7 @@ html[data-theme="dark"] .tpm-table {
   --bs-table-hover-color: var(--color-text);
   --bs-table-hover-bg: rgba(217, 185, 79, 0.08);
   color: var(--color-text);
-}
+}90% 
 
 html[data-theme="dark"] .tpm-table thead th {
   background-color: var(--color-wine-700);
@@ -937,7 +937,7 @@ html[data-theme="dark"] .tpm-table thead th {
 }
 
 html[data-theme="dark"] .tpm-table tbody tr:nth-child(odd) {
-  background-color: rgba(255, 255, 255, 0.045);
+  background-color: transparent;
 }
 
 html[data-theme="dark"] .tpm-table tbody tr:nth-child(even) {

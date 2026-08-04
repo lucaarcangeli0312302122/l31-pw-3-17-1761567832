@@ -242,7 +242,6 @@ document.addEventListener('DOMContentLoaded', function () {
         row3_th: 'Customer complaints',
         row3_td3: 'Higher quality standards as perceived by the end market.',
         row4_th: 'Delivery punctuality',
-        row4_extra: '(&gt;90% absolute value)',
         row4_td3: 'Strengthening of commercial relationships with large retailers and export markets.',
         row5_th: 'Unsafe acts/conditions',
         row5_td3: 'Active prevention of workplace injuries and improved company climate.',

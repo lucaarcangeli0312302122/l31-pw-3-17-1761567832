@@ -1,6 +1,6 @@
-// Applica subito tema/lingua salvati per evitare un flash visivo al caricamento.
-// Eseguito immediatamente (non attende il DOM) perché deve impostare l'attributo
-// data-theme prima che il browser disegni la pagina.
+/* Applica subito tema/lingua salvati per evitare un flash visivo al caricamento.
+   Eseguito immediatamente (non attende il DOM) perché deve impostare l'attributo
+   data-theme prima che il browser disegni la pagina */
 (function () {
   try {
     var storedTheme = localStorage.getItem('ruffino-theme');
@@ -17,22 +17,56 @@ document.addEventListener('DOMContentLoaded', function () {
       .map(function (link) { return document.querySelector(link.getAttribute('href')); })
       .filter(Boolean);
 
-    function setActiveLink() {
-      var current = sections[0];
-      sections.forEach(function (section) {
-        if (section.getBoundingClientRect().top <= 140) {
-          current = section;
-        }
-      });
+    function getScrollOffset() {
+      var styles = getComputedStyle(document.documentElement);
+      var headerH = parseFloat(styles.getPropertyValue('--header-h')) || 130;
+      if (window.matchMedia('(max-width: 991.98px)').matches) {
+        return headerH + 52;
+      }
+      return headerH;
+    }
+
+    function setActiveLink(activeId) {
       navLinks.forEach(function (link) {
-        var isActive = link.getAttribute('href') === '#' + current.id;
+        var isActive = link.getAttribute('href') === '#' + activeId;
         link.classList.toggle('active', isActive);
         if (isActive) {
-          link.setAttribute('aria-current', 'true');
+          link.setAttribute('aria-current', 'location');
         } else {
           link.removeAttribute('aria-current');
         }
       });
+    }
+
+    function updateActiveFromScroll() {
+      var offset = getScrollOffset();
+      var scrollPos = window.scrollY + offset + 2;
+      var current = null;
+
+      /* WORK-AROUND
+         Vicino al fondo pagina l'ultima sezione (es. il footer #fonti) 
+         può essere troppo corta per raggiungere l'offset sotto l'header: in quel caso la si
+         considera comunque attiva, evitando che resti evidenziata quella precedente */
+      var nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+
+      if (nearBottom) {
+        current = sections[sections.length - 1];
+      } else {
+        sections.forEach(function (section) {
+          if (section.offsetTop <= scrollPos) {
+            current = section;
+          }
+        });
+      }
+
+      if (current) {
+        setActiveLink(current.id);
+      } else {
+        navLinks.forEach(function (link) {
+          link.classList.remove('active');
+          link.removeAttribute('aria-current');
+        });
+      }
     }
 
     // Mostra/nasconde il pulsante "torna su"
@@ -42,17 +76,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.addEventListener('scroll', function () {
-      setActiveLink();
+      updateActiveFromScroll();
       toggleBackToTop();
     }, { passive: true });
 
-    setActiveLink();
+    window.addEventListener('resize', updateActiveFromScroll, { passive: true });
+
+    updateActiveFromScroll();
     toggleBackToTop();
 
     // Chiude il menu mobile dopo il click su una voce (miglior UX su schermi piccoli)
     var mobileMenu = document.getElementById('mainNav');
     navLinks.forEach(function (link) {
       link.addEventListener('click', function () {
+        var targetId = link.getAttribute('href').slice(1);
+        setActiveLink(targetId);
+
         if (mobileMenu.classList.contains('show')) {
           bootstrap.Collapse.getOrCreateInstance(mobileMenu).hide();
         }
